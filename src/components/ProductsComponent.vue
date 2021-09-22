@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="mt-5 d-flex">
-      <button class="btn btn-primary" @click="addNewProduct()">Add new</button>
+      <button class="btn btn-primary" @click="addNewProduct()">
+          <span class="me-2"><i class="fas fa-plus"></i></span> Add new
+        </button>
       <div class="form-group ms-auto">
         <input
           type="text"
@@ -13,8 +15,10 @@
           v-model="search"
         />
       </div>
-      <button class="btn-primary btn ms-2" @click="SearchProducts()">
-        search
+      <button class="btn-primary btn ms-1" @click="SearchProducts()">
+          <span class="me" >
+              <i class="fas fa-search"></i>
+          </span>
       </button>
     </div>
     <div class="row mt-3">
@@ -25,12 +29,28 @@
               <th
                 scope="col"
                 style="cursor:pointer"
-                @click="orderBy('product')"
+                @click="orderBy('id')"
               >
                 product#
+                <template v-if="order['id']" >
+                    <span :class="order['id'] == 'desc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                    <span :class="order['id'] == 'asc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('name')">
                 name
+                <template v-if="order['name']" >
+                    <span :class="order['name'] == 'desc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                    <span :class="order['name'] == 'asc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </template>
               </th>
               <th
                 scope="col"
@@ -38,6 +58,14 @@
                 @click="orderBy('category')"
               >
                 category
+                <template v-if="order['category']" >
+                    <span :class="order['category'] == 'desc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                    <span :class="order['category'] == 'asc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </template>
               </th>
               <th
                 scope="col"
@@ -45,9 +73,25 @@
                 @click="orderBy('quantity')"
               >
                 quantity
+                <template v-if="order['quantity']" >
+                    <span :class="order['quantity'] == 'desc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                    <span :class="order['quantity'] == 'asc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('status')">
                 status
+                <template v-if="order['status']" >
+                    <span :class="order['status'] == 'desc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-up"></i>
+                    </span>
+                    <span :class="order['status'] == 'asc'?'d-none':''" class="ms-2" >
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </template>
               </th>
             </tr>
             <tr>
