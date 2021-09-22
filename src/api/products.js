@@ -90,10 +90,8 @@ export default {
 
         axios({
             method: "GET",
-            url: config.server + '/search/products',
-            data: {
-                search : args.search
-            },
+            url: config.server + `/search/products?search=${args.search}`,
+            data: {},
         })
             .then((response) => {
                 if (response.status == 200) {
@@ -133,12 +131,18 @@ export default {
             }
         }
 
+        let data = {};
+        if(args.type){
+            data.type = args.type;
+        }
+
         axios({
             method: "GET",
             url: config.server + '/find/products',
             data: {
                 by : args.by,
-                value : args.value
+                value : args.value,
+                ...data
             },
         })
             .then((response) => {

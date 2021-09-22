@@ -13,9 +13,11 @@
           v-model="search"
         />
       </div>
-      <button class="btn-primary btn ms-2" @click="SearchProducts()">search</button>
+      <button class="btn-primary btn ms-2" @click="SearchProducts()">
+        search
+      </button>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-3">
       <div class="col-12">
         <table class="table table-striped table-hover">
           <thead>
@@ -26,20 +28,57 @@
               <th scope="col">quantity</th>
               <th scope="col">status</th>
             </tr>
+            <tr>
+              <th></th>
+              <th>
+                <input
+                  class="form-control"
+                  v-model="filter.name"
+                  @input="filterChange('name')"
+                  type="text"
+                />
+              </th>
+              <th>
+                <input
+                  class="form-control"
+                  v-model="filter.category"
+                  @input="filterChange('category')"
+                  type="text"
+                />
+              </th>
+              <th></th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="product in products"
-              :key="product.id"
-              style="cursor:pointer"
-              @click="editProduct(product)"
-            >
-              <th scope="row">{{ product.id }}</th>
-              <td>{{ product.name }}</td>
-              <td>{{ product.category }}</td>
-              <td>{{ product.quantity }}</td>
-              <td>{{ product.status }}</td>
-            </tr>
+            <template v-if="filter && (filter.name || filter.category)">
+              <tr
+                v-for="product in products_filter"
+                :key="product.id"
+                style="cursor:pointer"
+                @click="editProduct(product)"
+              >
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.status }}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <tr
+                v-for="product in products"
+                :key="product.id"
+                style="cursor:pointer"
+                @click="editProduct(product)"
+              >
+                <th scope="row">{{ product.id }}</th>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.status }}</td>
+              </tr>
+            </template>
           </tbody>
         </table>
       </div>
@@ -294,10 +333,12 @@ export default {
   data() {
     return {
       products: [],
+      products_filter: [],
       product: [],
       categories: ["categorie 1", "categorie 2"],
       status: ["active", "inactive"],
-      search:''
+      search: "",
+      filter: {},
     };
   },
   mounted() {
@@ -314,13 +355,47 @@ export default {
       console.log(validation);
     },
     SearchProducts() {
-      let validation = apiProducts.all({search:this.search}, (r) => {
-        if (r?.data) {
-          this.products = r.data;
+      let validation = apiProducts.search({ search: this.search }, (r) => {
+        if (r?.data?.data) {
+          this.products = r.data.data;
         }
       });
 
       console.log(validation);
+    },
+    // filterChange(col,value,type) {
+    //   let validation = apiProducts.find({
+    //       by : col,
+    //       value:value,
+    //       type:type
+    //    }, (r) => {
+    //     if (r?.data?.data) {
+    //       this.products = r.data.data;
+    //     }
+    //   });
+
+    //   console.log(validation);
+    // },
+    filterChange(col) {
+      console.log(col);
+      this.products_filter = this.products.filter((prod) => {
+        let state = false;
+        console.log(prod);
+
+        if (this.filter?.name) {
+          if (prod.name?.indexOf(this.filter?.name) != -1) {
+            state = true;
+          }
+        }
+
+        if (this.filter?.name) {
+          if (prod.name?.indexOf(this.filter?.name) != -1) {
+            state = true;
+          }
+        }
+
+        return state;
+      });
     },
     CreateProduct() {
       let validation = apiProducts.store(this.product, (r) => {
