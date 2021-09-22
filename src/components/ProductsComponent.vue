@@ -2,8 +2,8 @@
   <div class="container">
     <div class="mt-5 d-flex">
       <button class="btn btn-primary" @click="addNewProduct()">
-          <span class="me-2"><i class="fas fa-plus"></i></span> Add new
-        </button>
+        <span class="me-2"><i class="fas fa-plus"></i></span> Add new
+      </button>
       <div class="form-group ms-auto">
         <input
           type="text"
@@ -16,9 +16,9 @@
         />
       </div>
       <button class="btn-primary btn ms-1" @click="SearchProducts()">
-          <span class="me" >
-              <i class="fas fa-search"></i>
-          </span>
+        <span class="me">
+          <i class="fas fa-search"></i>
+        </span>
       </button>
     </div>
     <div class="row mt-3">
@@ -26,30 +26,38 @@
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th
-                scope="col"
-                style="cursor:pointer"
-                @click="orderBy('id')"
-              >
+              <th scope="col" style="cursor:pointer" @click="orderBy('id')">
                 product#
-                <template v-if="order['id']" >
-                    <span :class="order['id'] == 'desc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-up"></i>
-                    </span>
-                    <span :class="order['id'] == 'asc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-down"></i>
-                    </span>
+                <template v-if="order['id']">
+                  <span
+                    :class="order['id'] == 'desc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </span>
+                  <span
+                    :class="order['id'] == 'asc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
                 </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('name')">
                 name
-                <template v-if="order['name']" >
-                    <span :class="order['name'] == 'desc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-up"></i>
-                    </span>
-                    <span :class="order['name'] == 'asc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-down"></i>
-                    </span>
+                <template v-if="order['name']">
+                  <span
+                    :class="order['name'] == 'desc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </span>
+                  <span
+                    :class="order['name'] == 'asc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
                 </template>
               </th>
               <th
@@ -58,13 +66,19 @@
                 @click="orderBy('category')"
               >
                 category
-                <template v-if="order['category']" >
-                    <span :class="order['category'] == 'desc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-up"></i>
-                    </span>
-                    <span :class="order['category'] == 'asc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-down"></i>
-                    </span>
+                <template v-if="order['category']">
+                  <span
+                    :class="order['category'] == 'desc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </span>
+                  <span
+                    :class="order['category'] == 'asc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
                 </template>
               </th>
               <th
@@ -73,24 +87,36 @@
                 @click="orderBy('quantity')"
               >
                 quantity
-                <template v-if="order['quantity']" >
-                    <span :class="order['quantity'] == 'desc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-up"></i>
-                    </span>
-                    <span :class="order['quantity'] == 'asc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-down"></i>
-                    </span>
+                <template v-if="order['quantity']">
+                  <span
+                    :class="order['quantity'] == 'desc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </span>
+                  <span
+                    :class="order['quantity'] == 'asc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
                 </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('status')">
                 status
-                <template v-if="order['status']" >
-                    <span :class="order['status'] == 'desc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-up"></i>
-                    </span>
-                    <span :class="order['status'] == 'asc'?'d-none':''" class="ms-2" >
-                        <i class="fas fa-chevron-down"></i>
-                    </span>
+                <template v-if="order['status']">
+                  <span
+                    :class="order['status'] == 'desc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-up"></i>
+                  </span>
+                  <span
+                    :class="order['status'] == 'asc' ? 'd-none' : ''"
+                    class="ms-2"
+                  >
+                    <i class="fas fa-chevron-down"></i>
+                  </span>
                 </template>
               </th>
             </tr>
@@ -173,7 +199,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-12 mb-2">
-                <div class="form-group">
+                <div class="form-group" >
                   <label for="">name : </label>
                   <input
                     type="text"
@@ -181,6 +207,7 @@
                     name=""
                     id=""
                     v-model="product.name"
+                    :class="add_product_errors.name?'is-invalid':''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
@@ -194,6 +221,7 @@
                     name=""
                     id=""
                     v-model="product.category"
+                    :class="add_product_errors.category?'is-invalid':''"
                   >
                     <option
                       v-for="(categorie, i) in categories"
@@ -213,6 +241,7 @@
                     name=""
                     id=""
                     v-model="product.quantity"
+                    :class="add_product_errors.quantity?'is-invalid':''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
@@ -226,6 +255,7 @@
                     name=""
                     id=""
                     v-model="product.status"
+                    :class="add_product_errors.status?'is-invalid':''"
                   >
                     <option
                       v-for="(statu, i) in status"
@@ -243,6 +273,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click="add_product_errors={};product={}"
             >
               Close
             </button>
@@ -406,6 +437,8 @@ export default {
       search: "",
       filter: {},
       order: {},
+      edit_product_errors: {},
+      add_product_errors: {},
     };
   },
   mounted() {
@@ -416,6 +449,8 @@ export default {
       let validation = apiProducts.all({}, (r) => {
         if (r?.data) {
           this.products = r.data;
+          this.orderBy();
+          this.clear();
         }
       });
 
@@ -469,10 +504,17 @@ export default {
         if (r?.data) {
           window.$("#addNewModal").modal("hide");
           this.LoadProducts();
+          this.clear();
         }
       });
 
       console.log(validation);
+      
+      this.clear();
+
+      validation?.data.forEach((v) => {
+        this.add_product_errors[v.arg]=v.message;
+      });
     },
     UpdateProduct() {
       let validation = apiProducts.update(this.product, (r) => {
@@ -480,6 +522,7 @@ export default {
           console.log(r);
           window.$("#editModal").modal("hide");
           this.LoadProducts();
+          this.clear();
         }
       });
 
@@ -491,16 +534,19 @@ export default {
           console.log(r);
           window.$("#editModal").modal("hide");
           this.LoadProducts();
+          this.clear();
         }
       });
 
       console.log(validation);
     },
     addNewProduct() {
+        this.clear();
       this.product = {};
       window.$("#addNewModal").modal("show");
     },
     editProduct(product) {
+        this.clear();
       this.product = { ...product };
       window.$("#editModal").modal("show");
     },
@@ -526,6 +572,11 @@ export default {
         this.filterChange();
       }
     },
+    clear(){
+        this.product={};
+        this.edit_product_errors = {};
+        this.add_product_errors = {};
+    }
   },
 };
 </script>

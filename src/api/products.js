@@ -7,7 +7,7 @@ export default {
 
         let errors = [];
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -43,7 +43,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -81,7 +81,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -124,7 +124,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -189,7 +189,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -229,7 +229,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
@@ -289,7 +289,7 @@ export default {
             });
         }
 
-        if(!errors){
+        if(errors.length>0){
             return {
                 success : false,
                 data : errors
