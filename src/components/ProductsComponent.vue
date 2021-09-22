@@ -1,9 +1,11 @@
 <template>
   <div class="container">
-
     <div class="mt-5 d-flex">
       <button class="btn btn-primary" @click="addNewProduct()">
-        <span class="me-2"><i class="fas fa-plus"></i></span> Add new
+        <span class="me-2"><i class="fas fa-plus"></i></span> Add new Product
+      </button>
+      <button class="btn btn-primary ms-2" @click="addNewCategory()">
+        <span class="me-2"><i class="fas fa-plus"></i></span> Add new Category
       </button>
       <div class="form-group ms-auto">
         <input
@@ -45,9 +47,9 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
-                <template v-else >
-                    <span class="ms-2" >
-                      <i class="fas fa-minus"></i>
+                <template v-else>
+                  <span class="ms-2">
+                    <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -67,9 +69,9 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
-                <template v-else >
-                    <span class="ms-2" >
-                      <i class="fas fa-minus"></i>
+                <template v-else>
+                  <span class="ms-2">
+                    <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -93,9 +95,9 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
-                <template v-else >
-                    <span class="ms-2" >
-                      <i class="fas fa-minus"></i>
+                <template v-else>
+                  <span class="ms-2">
+                    <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -119,9 +121,9 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
-                <template v-else >
-                    <span class="ms-2" >
-                      <i class="fas fa-minus"></i>
+                <template v-else>
+                  <span class="ms-2">
+                    <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -141,9 +143,9 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
-                <template v-else >
-                    <span class="ms-2" >
-                      <i class="fas fa-minus"></i>
+                <template v-else>
+                  <span class="ms-2">
+                    <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -204,7 +206,7 @@
       </div>
     </div>
 
-    <!-- Create Modal -->
+    <!-- Create Product Modal -->
     <div
       class="modal fade"
       id="addNewModal"
@@ -261,8 +263,8 @@
                     <option
                       v-for="(categorie, i) in categories"
                       :key="'categorie_' + i"
-                      :value="categorie"
-                      >{{ categorie }}</option
+                      :value="categorie.name"
+                      >{{ categorie.name }}</option
                     >
                   </select>
                   <small
@@ -341,9 +343,9 @@
         </div>
       </div>
     </div>
-    <!-- / Create Modal -->
+    <!-- / Create Product Modal -->
 
-    <!-- Update Modal -->
+    <!-- Update Product Modal -->
     <div
       class="modal fade"
       id="editModal"
@@ -414,8 +416,8 @@
                     <option
                       v-for="(categorie, i) in categories"
                       :key="'categorie_' + i"
-                      :value="categorie"
-                      >{{ categorie }}</option
+                      :value="categorie.name"
+                      >{{ categorie.name }}</option
                     >
                   </select>
                   <small
@@ -500,13 +502,98 @@
         </div>
       </div>
     </div>
-    <!-- / Create Modal -->
+    <!-- / Update Product Modal -->
 
+    <!-- Create Category Modal -->
+    <div
+      class="modal fade"
+      id="addNewCategoryModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addNewCategoryModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNewCategoryModalLabel">
+              Add new category
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              @click="clear()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 mb-2">
+                <div class="form-group">
+                  <label for="">name : </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    id=""
+                    v-model="category.name"
+                    :class="add_category_errors.name ? 'is-invalid' : ''"
+                    aria-describedby="helpId"
+                    placeholder=""
+                  />
+                </div>
+                <small
+                  :class="add_product_errors.name ? '' : 'd-none'"
+                  class="text-danger"
+                >
+                  {{ add_product_errors.name }}
+                </small>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label>list of categories : </label>
+              <div
+                class="col-12"
+                v-for="(category, i) in categories"
+                :key="'list_categories_' + i"
+              >
+                <div class="category-item mb-3">
+                  <span>{{ category.name }}</span>
+                  <button class="btn ms-auto" @click="DeleteCategory(category)">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              @click="clear()"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="CreateCategory()"
+            >
+              Create
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Create Modal -->
   </div>
 </template>
 
 <script>
 import apiProducts from "../api/products";
+import apiCategories from "../api/categories";
 
 export default {
   data() {
@@ -515,15 +602,18 @@ export default {
       products_filter: [],
       product: [],
       categories: ["categorie 1", "categorie 2"],
+      category: {},
       status: ["active", "inactive"],
       search: "",
       filter: {},
       order: {},
       edit_product_errors: {},
       add_product_errors: {},
+      add_category_errors: {},
     };
   },
   mounted() {
+    this.LoadCategories();
     this.LoadProducts();
   },
   methods: {
@@ -539,11 +629,10 @@ export default {
       console.log(validation);
     },
     SearchProducts() {
-        
-        if(!this.search){
-            this.LoadProducts();
-            return;
-        }
+      if (!this.search) {
+        this.LoadProducts();
+        return;
+      }
 
       let validation = apiProducts.search({ search: this.search }, (r) => {
         if (r?.data?.data) {
@@ -666,9 +755,68 @@ export default {
       this.product = {};
       this.edit_product_errors = {};
       this.add_product_errors = {};
+
+      this.category = {};
+      this.add_category_errors = {};
+    },
+    LoadCategories() {
+      let validation = apiCategories.all({}, (r) => {
+        if (r?.data) {
+          this.categories = r.data;
+          this.clear();
+        }
+      });
+
+      console.log(validation);
+    },
+    addNewCategory() {
+      this.clear();
+      this.product = {};
+      window.$("#addNewCategoryModal").modal("show");
+    },
+    CreateCategory() {
+      let validation = apiCategories.store(this.category, (r) => {
+        if (r?.data) {
+        //  window.$("#addNewCategoryModal").modal("hide");
+          this.LoadCategories();
+          this.clear();
+        }
+      });
+
+      this.add_category_errors = {};
+      validation?.data.forEach((v) => {
+        this.add_category_errors[v.arg] = v.message;
+      });
+    },
+    DeleteCategory(category) {
+      let validation = apiCategories.delete(category, (r) => {
+        if (r?.data) {
+          console.log(r);
+          this.LoadCategories();
+          this.clear();
+        }
+      });
+
+      console.log(validation);
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.category-item {
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  border: 1px dashed;
+  border-radius: 5px;
+}
+.category-item:hover,
+.category-item:hover .btn {
+  color: blue;
+}
+
+.category-item:hover .btn:hover {
+  color: red !important;
+}
+</style>
