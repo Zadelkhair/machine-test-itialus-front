@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+
     <div class="mt-5 d-flex">
       <button class="btn btn-primary" @click="addNewProduct()">
         <span class="me-2"><i class="fas fa-plus"></i></span> Add new
@@ -13,6 +14,7 @@
           aria-describedby="helpId"
           placeholder=""
           v-model="search"
+          @keyup.enter="SearchProducts()"
         />
       </div>
       <button class="btn-primary btn ms-1" @click="SearchProducts()">
@@ -21,6 +23,7 @@
         </span>
       </button>
     </div>
+
     <div class="row mt-3">
       <div class="col-12">
         <table class="table table-striped table-hover">
@@ -42,6 +45,11 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
+                <template v-else >
+                    <span class="ms-2" >
+                      <i class="fas fa-minus"></i>
+                  </span>
+                </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('name')">
                 name
@@ -57,6 +65,11 @@
                     class="ms-2"
                   >
                     <i class="fas fa-chevron-down"></i>
+                  </span>
+                </template>
+                <template v-else >
+                    <span class="ms-2" >
+                      <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -80,6 +93,11 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
+                <template v-else >
+                    <span class="ms-2" >
+                      <i class="fas fa-minus"></i>
+                  </span>
+                </template>
               </th>
               <th
                 scope="col"
@@ -101,6 +119,11 @@
                     <i class="fas fa-chevron-down"></i>
                   </span>
                 </template>
+                <template v-else >
+                    <span class="ms-2" >
+                      <i class="fas fa-minus"></i>
+                  </span>
+                </template>
               </th>
               <th scope="col" style="cursor:pointer" @click="orderBy('status')">
                 status
@@ -116,6 +139,11 @@
                     class="ms-2"
                   >
                     <i class="fas fa-chevron-down"></i>
+                  </span>
+                </template>
+                <template v-else >
+                    <span class="ms-2" >
+                      <i class="fas fa-minus"></i>
                   </span>
                 </template>
               </th>
@@ -473,6 +501,7 @@
       </div>
     </div>
     <!-- / Create Modal -->
+
   </div>
 </template>
 
@@ -510,6 +539,12 @@ export default {
       console.log(validation);
     },
     SearchProducts() {
+        
+        if(!this.search){
+            this.LoadProducts();
+            return;
+        }
+
       let validation = apiProducts.search({ search: this.search }, (r) => {
         if (r?.data?.data) {
           this.products = r.data.data;
@@ -534,18 +569,18 @@ export default {
     filterChange(col) {
       console.log(col);
       this.products_filter = this.products.filter((prod) => {
-        let state = false;
+        let state = true;
         console.log(prod);
 
         if (this.filter?.name) {
-          if (prod.name?.indexOf(this.filter?.name) != -1) {
-            state = true;
+          if (prod.name?.indexOf(this.filter?.name) == -1) {
+            state &= false;
           }
         }
 
         if (this.filter?.category) {
-          if (prod.category?.indexOf(this.filter?.category) != -1) {
-            state = true;
+          if (prod.category?.indexOf(this.filter?.category) == -1) {
+            state &= false;
           }
         }
 
