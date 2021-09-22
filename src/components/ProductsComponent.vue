@@ -388,8 +388,8 @@ export default {
           }
         }
 
-        if (this.filter?.name) {
-          if (prod.name?.indexOf(this.filter?.name) != -1) {
+        if (this.filter?.category) {
+          if (prod.category?.indexOf(this.filter?.category) != -1) {
             state = true;
           }
         }
