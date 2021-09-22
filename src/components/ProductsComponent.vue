@@ -200,7 +200,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-12 mb-2">
-                <div class="form-group" >
+                <div class="form-group">
                   <label for="">name : </label>
                   <input
                     type="text"
@@ -208,11 +208,17 @@
                     name=""
                     id=""
                     v-model="product.name"
-                    :class="add_product_errors.name?'is-invalid':''"
+                    :class="add_product_errors.name ? 'is-invalid' : ''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
                 </div>
+                <small
+                  :class="add_product_errors.name ? '' : 'd-none'"
+                  class="text-danger"
+                >
+                  {{ add_product_errors.name }}
+                </small>
               </div>
               <div class="col-12 mb-2">
                 <div class="form-group">
@@ -222,7 +228,7 @@
                     name=""
                     id=""
                     v-model="product.category"
-                    :class="add_product_errors.category?'is-invalid':''"
+                    :class="add_product_errors.category ? 'is-invalid' : ''"
                   >
                     <option
                       v-for="(categorie, i) in categories"
@@ -231,6 +237,12 @@
                       >{{ categorie }}</option
                     >
                   </select>
+                  <small
+                    :class="add_product_errors.category ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ add_product_errors.category }}
+                  </small>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -242,10 +254,16 @@
                     name=""
                     id=""
                     v-model="product.quantity"
-                    :class="add_product_errors.quantity?'is-invalid':''"
+                    :class="add_product_errors.quantity ? 'is-invalid' : ''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
+                  <small
+                    :class="add_product_errors.quantity ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ add_product_errors.quantity }}
+                  </small>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -256,7 +274,7 @@
                     name=""
                     id=""
                     v-model="product.status"
-                    :class="add_product_errors.status?'is-invalid':''"
+                    :class="add_product_errors.status ? 'is-invalid' : ''"
                   >
                     <option
                       v-for="(statu, i) in status"
@@ -265,6 +283,12 @@
                       >{{ statu }}</option
                     >
                   </select>
+                  <small
+                    :class="add_product_errors.status ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ add_product_errors.status }}
+                  </small>
                 </div>
               </div>
             </div>
@@ -337,10 +361,16 @@
                     name=""
                     id=""
                     v-model="product.name"
-                    :class="edit_product_errors.name?'is-invalid':''"
+                    :class="edit_product_errors.name ? 'is-invalid' : ''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
+                  <small
+                    :class="edit_product_errors.name ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ edit_product_errors.name }}
+                  </small>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -351,7 +381,7 @@
                     name=""
                     id=""
                     v-model="product.category"
-                    :class="edit_product_errors.category?'is-invalid':''"
+                    :class="edit_product_errors.category ? 'is-invalid' : ''"
                   >
                     <option
                       v-for="(categorie, i) in categories"
@@ -360,6 +390,12 @@
                       >{{ categorie }}</option
                     >
                   </select>
+                  <small
+                    :class="edit_product_errors.category ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ edit_product_errors.category }}
+                  </small>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -371,10 +407,16 @@
                     name=""
                     id=""
                     v-model="product.quantity"
-                    :class="edit_product_errors.quantity?'is-invalid':''"
+                    :class="edit_product_errors.quantity ? 'is-invalid' : ''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
+                  <small
+                    :class="edit_product_errors.quantity ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ edit_product_errors.quantity }}
+                  </small>
                 </div>
               </div>
               <div class="col-12 mb-2">
@@ -385,7 +427,7 @@
                     name=""
                     id=""
                     v-model="product.status"
-                    :class="edit_product_errors.status?'is-invalid':''"
+                    :class="edit_product_errors.status ? 'is-invalid' : ''"
                   >
                     <option
                       v-for="(statu, i) in status"
@@ -394,6 +436,12 @@
                       >{{ statu }}</option
                     >
                   </select>
+                  <small
+                    :class="edit_product_errors.status ? '' : 'd-none'"
+                    class="text-danger"
+                  >
+                    {{ edit_product_errors.status }}
+                  </small>
                 </div>
               </div>
             </div>
@@ -443,7 +491,7 @@ export default {
       filter: {},
       order: {},
       edit_product_errors: {},
-      add_product_errors: {}
+      add_product_errors: {},
     };
   },
   mounted() {
@@ -515,7 +563,7 @@ export default {
 
       this.add_product_errors = {};
       validation?.data.forEach((v) => {
-        this.add_product_errors[v.arg]=v.message;
+        this.add_product_errors[v.arg] = v.message;
       });
     },
     UpdateProduct() {
@@ -532,7 +580,7 @@ export default {
 
       this.edit_product_errors = {};
       validation?.data.forEach((v) => {
-        this.edit_product_errors[v.arg]=v.message;
+        this.edit_product_errors[v.arg] = v.message;
       });
     },
     DeleteProduct() {
@@ -548,12 +596,12 @@ export default {
       console.log(validation);
     },
     addNewProduct() {
-        this.clear();
+      this.clear();
       this.product = {};
       window.$("#addNewModal").modal("show");
     },
     editProduct(product) {
-        this.clear();
+      this.clear();
       this.product = { ...product };
       window.$("#editModal").modal("show");
     },
@@ -579,11 +627,11 @@ export default {
         this.filterChange();
       }
     },
-    clear(){
-        this.product={};
-        this.edit_product_errors = {};
-        this.add_product_errors = {};
-    }
+    clear() {
+      this.product = {};
+      this.edit_product_errors = {};
+      this.add_product_errors = {};
+    },
   },
 };
 </script>
