@@ -22,11 +22,33 @@
         <table class="table table-striped table-hover">
           <thead>
             <tr>
-              <th scope="col">product#</th>
-              <th scope="col">name</th>
-              <th scope="col">category</th>
-              <th scope="col">quantity</th>
-              <th scope="col">status</th>
+              <th
+                scope="col"
+                style="cursor:pointer"
+                @click="orderBy('product')"
+              >
+                product#
+              </th>
+              <th scope="col" style="cursor:pointer" @click="orderBy('name')">
+                name
+              </th>
+              <th
+                scope="col"
+                style="cursor:pointer"
+                @click="orderBy('category')"
+              >
+                category
+              </th>
+              <th
+                scope="col"
+                style="cursor:pointer"
+                @click="orderBy('quantity')"
+              >
+                quantity
+              </th>
+              <th scope="col" style="cursor:pointer" @click="orderBy('status')">
+                status
+              </th>
             </tr>
             <tr>
               <th></th>
@@ -339,6 +361,7 @@ export default {
       status: ["active", "inactive"],
       search: "",
       filter: {},
+      order: {},
     };
   },
   mounted() {
@@ -437,12 +460,30 @@ export default {
       this.product = { ...product };
       window.$("#editModal").modal("show");
     },
+    orderBy(col) {
+      console.log(this.order[col]);
+      if (this.order[col] == "asc") {
+        this.order[col] = "desc";
+        this.products.sort((a, b) => {
+          return a[col] > b[col] ? 1 : b[col] > a[col] ? -1 : 0;
+        });
+        this.filterChange();
+      } else if (this.order[col] == "desc") {
+        this.order[col] = "asc";
+        this.products.sort((a, b) => {
+          return a[col] < b[col] ? 1 : b[col] < a[col] ? -1 : 0;
+        });
+        this.filterChange();
+      } else {
+        this.order[col] = "desc";
+        this.products.sort((a, b) => {
+          return a[col] > b[col] ? 1 : b[col] > a[col] ? -1 : 0;
+        });
+        this.filterChange();
+      }
+    },
   },
 };
 </script>
 
-<style>
-.container {
-  width: 100%;
-}
-</style>
+<style></style>
