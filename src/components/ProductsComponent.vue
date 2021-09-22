@@ -194,6 +194,7 @@
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+              @click="clear()"
             ></button>
           </div>
           <div class="modal-body">
@@ -273,7 +274,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              @click="add_product_errors={};product={}"
+              @click="clear()"
             >
               Close
             </button>
@@ -336,6 +337,7 @@
                     name=""
                     id=""
                     v-model="product.name"
+                    :class="edit_product_errors.name?'is-invalid':''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
@@ -349,6 +351,7 @@
                     name=""
                     id=""
                     v-model="product.category"
+                    :class="edit_product_errors.category?'is-invalid':''"
                   >
                     <option
                       v-for="(categorie, i) in categories"
@@ -368,6 +371,7 @@
                     name=""
                     id=""
                     v-model="product.quantity"
+                    :class="edit_product_errors.quantity?'is-invalid':''"
                     aria-describedby="helpId"
                     placeholder=""
                   />
@@ -381,6 +385,7 @@
                     name=""
                     id=""
                     v-model="product.status"
+                    :class="edit_product_errors.status?'is-invalid':''"
                   >
                     <option
                       v-for="(statu, i) in status"
@@ -438,7 +443,7 @@ export default {
       filter: {},
       order: {},
       edit_product_errors: {},
-      add_product_errors: {},
+      add_product_errors: {}
     };
   },
   mounted() {
@@ -508,10 +513,7 @@ export default {
         }
       });
 
-      console.log(validation);
-      
-      this.clear();
-
+      this.add_product_errors = {};
       validation?.data.forEach((v) => {
         this.add_product_errors[v.arg]=v.message;
       });
@@ -527,6 +529,11 @@ export default {
       });
 
       console.log(validation);
+
+      this.edit_product_errors = {};
+      validation?.data.forEach((v) => {
+        this.edit_product_errors[v.arg]=v.message;
+      });
     },
     DeleteProduct() {
       let validation = apiProducts.delete(this.product, (r) => {

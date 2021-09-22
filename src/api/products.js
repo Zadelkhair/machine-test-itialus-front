@@ -3,14 +3,14 @@ import config from "../../config";
 
 export default {
 
-    all(args,callback) {
+    all(args, callback) {
 
         let errors = [];
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
@@ -28,25 +28,25 @@ export default {
                 callback(error);
             });
 
-        return {success : true}
+        return { success: true }
 
     },
 
-    get(args,callback) {
+    get(args, callback) {
 
         let errors = [];
 
-        if(!args.id){
+        if (!args.id) {
             errors.push({
-                arg : 'id',
-                message : 'id is required'
+                arg: 'id',
+                message: 'id is required'
             });
         }
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
@@ -54,7 +54,7 @@ export default {
             method: "GET",
             url: config.server + '/get/product',
             data: {
-                id : args.id
+                id: args.id
             },
         })
             .then((response) => {
@@ -66,25 +66,25 @@ export default {
                 callback(error);
             });
 
-        return {success : true}
+        return { success: true }
 
     },
 
-    search(args,callback) {
+    search(args, callback) {
 
         let errors = [];
 
-        if(!args.search){
+        if (!args.search) {
             errors.push({
-                arg : 'search',
-                message : 'search is required'
+                arg: 'search',
+                message: 'search is required'
             });
         }
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
@@ -102,37 +102,37 @@ export default {
                 callback(error);
             });
 
-        return {success : true}
+        return { success: true }
 
     },
 
-    find(args,callback) {
+    find(args, callback) {
 
         let errors = [];
 
-        if(!args.by){
+        if (!args.by) {
             errors.push({
-                arg : 'by',
-                message : 'by is required'
+                arg: 'by',
+                message: 'by is required'
             });
         }
 
-        if(!args.value){
+        if (!args.value) {
             errors.push({
-                arg : 'value',
-                message : 'value is required'
+                arg: 'value',
+                message: 'value is required'
             });
         }
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
         let data = {};
-        if(args.type){
+        if (args.type) {
             data.type = args.type;
         }
 
@@ -140,8 +140,8 @@ export default {
             method: "GET",
             url: config.server + '/find/products',
             data: {
-                by : args.by,
-                value : args.value,
+                by: args.by,
+                value: args.value,
                 ...data
             },
         })
@@ -154,45 +154,45 @@ export default {
                 callback(error);
             });
 
-        return {success : true}
+        return { success: true }
     },
 
-    store(args,callback) {
+    store(args, callback) {
 
         let errors = [];
 
-        if(!args.name){
+        if (!args.name) {
             errors.push({
-                arg : 'name',
-                message : 'name is required'
+                arg: 'name',
+                message: 'name is required'
             });
         }
 
-        if(!args.category){
+        if (!args.category) {
             errors.push({
-                arg : 'category',
-                message : 'category is required'
+                arg: 'category',
+                message: 'category is required'
             });
         }
 
-        if(!args.quantity){
+        if (!args.quantity) {
             errors.push({
-                arg : 'quantity',
-                message : 'quantity is required'
+                arg: 'quantity',
+                message: 'quantity is required'
             });
         }
 
-        if(!args.status){
+        if (!args.status) {
             errors.push({
-                arg : 'status',
-                message : 'status is required'
+                arg: 'status',
+                message: 'status is required'
             });
         }
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
@@ -200,10 +200,10 @@ export default {
             method: "POST",
             url: config.server + '/store/product',
             data: {
-                name:args.name,
-                category:args.category,
-                quantity:args.quantity,
-                status:args.status
+                name: args.name,
+                category: args.category,
+                quantity: args.quantity,
+                status: args.status
             },
         })
             .then((response) => {
@@ -215,51 +215,87 @@ export default {
                 callback(error);
             });
 
-            return {success : true}
+        return { success: true }
     },
 
-    update(args,callback) {
+    update(args, callback) {
 
         let errors = [];
 
-        if(!args.id){
+
+        if (!args.id) {
             errors.push({
-                arg : 'id',
-                message : 'id is required'
+                arg: 'id',
+                message: 'id is required'
             });
         }
 
-        if(errors.length>0){
+        if (!args.name) {
+            errors.push({
+                arg: 'name',
+                message: 'name is required'
+            });
+        }
+
+        if (!args.category) {
+            errors.push({
+                arg: 'category',
+                message: 'category is required'
+            });
+        }
+
+        if (!args.quantity) {
+            errors.push({
+                arg: 'quantity',
+                message: 'quantity is required'
+            });
+        }
+
+        if (!args.status) {
+            errors.push({
+                arg: 'status',
+                message: 'status is required'
+            });
+        }
+
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
+            }
+        }
+
+        if (errors.length > 0) {
+            return {
+                success: false,
+                data: errors
             }
         }
 
         let data = {};
 
-        
-        if(args.id){
+
+        if (args.id) {
             data.id = args.id;
         }
-        
-        if(args.name){
+
+        if (args.name) {
             data.name = args.name;
         }
-        
-        if(args.category){
+
+        if (args.category) {
             data.category = args.category;
         }
-        
-        if(args.quantity){
+
+        if (args.quantity) {
             data.quantity = args.quantity;
         }
-        
-        if(args.status){
+
+        if (args.status) {
             data.status = args.status;
         }
 
-        console.log("data",data);
+        console.log("data", data);
 
         axios({
             method: "PUT",
@@ -275,24 +311,24 @@ export default {
                 callback(error);
             });
 
-            return {success : true}
+        return { success: true }
     },
 
-    delete(args,callback) {
+    delete(args, callback) {
 
         let errors = [];
 
-        if(!args.id){
+        if (!args.id) {
             errors.push({
-                arg : 'id',
-                message : 'id is required'
+                arg: 'id',
+                message: 'id is required'
             });
         }
 
-        if(errors.length>0){
+        if (errors.length > 0) {
             return {
-                success : false,
-                data : errors
+                success: false,
+                data: errors
             }
         }
 
@@ -300,7 +336,7 @@ export default {
             method: "DELETE",
             url: config.server + '/delete/product',
             data: {
-                id : args.id
+                id: args.id
             },
         })
             .then((response) => {
@@ -312,7 +348,7 @@ export default {
                 callback(error);
             });
 
-            return {success : true}
+        return { success: true }
     },
 
 }
