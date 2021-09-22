@@ -2,10 +2,10 @@
   <div class="container">
     <div class="mt-5 d-flex">
       <button class="btn btn-primary" @click="addNewProduct()">
-        <span class="me-2"><i class="fas fa-plus"></i></span> Add new Product
+        <span class="me-2"><i class="fas fa-plus"></i></span> Product
       </button>
       <button class="btn btn-primary ms-2" @click="addNewCategory()">
-        <span class="me-2"><i class="fas fa-plus"></i></span> Add new Category
+        <span class="me-2"><i class="fas fa-plus"></i></span> Category
       </button>
       <div class="form-group ms-auto">
         <input
@@ -551,18 +551,23 @@
                 </small>
               </div>
             </div>
-            <div class="row mt-3">
+            <div class="mt-3">
               <label>list of categories : </label>
-              <div
-                class="col-12"
-                v-for="(category, i) in categories"
-                :key="'list_categories_' + i"
-              >
-                <div class="category-item mb-3">
-                  <span>{{ category.name }}</span>
-                  <button class="btn ms-auto" @click="DeleteCategory(category)">
-                    <i class="far fa-trash-alt"></i>
-                  </button>
+              <div class="list-categories row">
+                <div
+                  class="col-12"
+                  v-for="(category, i) in categories"
+                  :key="'list_categories_' + i"
+                >
+                  <div class="category-item mb-3">
+                    <span>{{ category.name }}</span>
+                    <button
+                      class="btn ms-auto"
+                      @click="DeleteCategory(category)"
+                    >
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -777,7 +782,7 @@ export default {
     CreateCategory() {
       let validation = apiCategories.store(this.category, (r) => {
         if (r?.data) {
-        //  window.$("#addNewCategoryModal").modal("hide");
+          //  window.$("#addNewCategoryModal").modal("hide");
           this.LoadCategories();
           this.clear();
         }
@@ -818,5 +823,30 @@ export default {
 
 .category-item:hover .btn:hover {
   color: red !important;
+}
+
+.list-categories {
+  max-height: 325px;
+  overflow-y: scroll;
+}
+
+/* width */
+.list-categories::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.list-categories::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.list-categories::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.list-categories::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>
