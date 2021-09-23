@@ -337,7 +337,9 @@
               class="btn btn-primary"
               @click="CreateProduct()"
             >
-              Create
+
+              <span :class="loading.create_product?'':'d-none'" class="me-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
+               Create 
             </button>
           </div>
         </div>
@@ -489,6 +491,7 @@
               class="btn btn-primary"
               @click="UpdateProduct()"
             >
+              <span :class="loading.update_product?'':'d-none'" class="me-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
               Update
             </button>
             <button
@@ -496,6 +499,7 @@
               class="btn btn-danger"
               @click="DeleteProduct()"
             >
+              <span :class="loading.delete_product?'':'d-none'" class="me-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
               Delete
             </button>
           </div>
@@ -552,7 +556,10 @@
               </div>
             </div>
             <div class="mt-3">
-              <label>list of categories : </label>
+              <label>list of categories : 
+                  <span :class="loading.delete_category?'':'d-none'" class="ms-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
+                  <span :class="loading.create_category?'':'d-none'" class="ms-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
+              </label>
               <div class="list-categories row">
                 <div
                   class="col-12"
@@ -561,6 +568,7 @@
                 >
                   <div class="category-item mb-3">
                     <span>{{ category.name }}</span>
+                    
                     <button
                       class="btn ms-auto"
                       @click="DeleteCategory(category)"
@@ -586,6 +594,7 @@
               class="btn btn-primary"
               @click="CreateCategory()"
             >
+              <span :class="loading.create_category?'':'d-none'" class="me-2" ><i class="fas fa-circle-notch fa-spin"></i></span>
               Create
             </button>
           </div>
@@ -616,6 +625,13 @@ export default {
       edit_product_errors: {},
       add_product_errors: {},
       add_category_errors: {},
+      loading : {
+          delete_category : false,
+          create_category : false,
+          update_product : false,
+          delete_product : false,
+          create_product : false
+      }
     };
   },
   mounted() {
@@ -686,7 +702,9 @@ export default {
       });
     },
     CreateProduct() {
+        this.loading.create_product = true;
       let validation = apiProducts.store(this.product, (r) => {
+        this.loading.create_product = false;
         if (r?.data) {
           window.$("#addNewModal").modal("hide");
           this.LoadProducts();
@@ -700,7 +718,10 @@ export default {
       });
     },
     UpdateProduct() {
+        this.loading.update_product = true;
+
       let validation = apiProducts.update(this.product, (r) => {
+          this.loading.update_product = false;
         if (r?.data) {
           console.log(r);
           window.$("#editModal").modal("hide");
@@ -717,7 +738,9 @@ export default {
       });
     },
     DeleteProduct() {
+        this.loading.delete_product = true;
       let validation = apiProducts.delete(this.product, (r) => {
+          this.loading.delete_product = false;
         if (r?.data) {
           console.log(r);
           window.$("#editModal").modal("hide");
@@ -784,7 +807,9 @@ export default {
       window.$("#addNewCategoryModal").modal("show");
     },
     CreateCategory() {
+        this.loading.create_category = true;
       let validation = apiCategories.store(this.category, (r) => {
+          this.loading.create_category = false;
         if (r?.data) {
           //  window.$("#addNewCategoryModal").modal("hide");
           this.LoadCategories();
@@ -798,7 +823,9 @@ export default {
       });
     },
     DeleteCategory(category) {
+        this.loading.delete_category = true;
       let validation = apiCategories.delete(category, (r) => {
+          this.loading.delete_category = false;
         if (r?.data) {
           console.log(r);
           this.LoadCategories();
