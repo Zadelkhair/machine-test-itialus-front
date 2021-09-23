@@ -30,8 +30,8 @@
       <div class="col-12" data-intro="To edit or delete product, you should click on the name of product." data-step="5" >
         <table class="table table-striped table-hover">
           <thead>
-            <tr @click="orderBy('id')" data-intro="You can click on any column to order the table based on it." data-step="7" >
-              <th scope="col" style="cursor:pointer" >
+            <tr data-intro="You can click on any column to order the table based on it." data-step="7" >
+              <th scope="col" style="cursor:pointer" @click="orderBy('id')" >
                 product#
                 <template v-if="order['id']">
                   <span
