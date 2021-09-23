@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container" data-intro="Hello! My name is Abdelkoddous & this is my machine test" data-step="1">
     <div class="mt-5 d-flex">
-      <button class="btn btn-primary" @click="addNewProduct()">
+      <button data-intro="After adding new category, You can add a product" data-step="3" class="btn btn-primary" @click="addNewProduct()">
         <span class="me-2"><i class="fas fa-plus"></i></span> Product
       </button>
-      <button class="btn btn-primary ms-2" @click="addNewCategory()">
+      <button data-intro="From this button, You can add new category" data-step="2" class="btn btn-primary ms-2" @click="addNewCategory()">
         <span class="me-2"><i class="fas fa-plus"></i></span> Category
       </button>
-      <div class="form-group ms-auto">
+      <div class="form-group ms-auto" data-intro="You can use this input to search for products (this will fetch the data from the backend)." data-step="6" >
         <input
           type="text"
           class="form-control"
@@ -26,12 +26,12 @@
       </button>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-12">
+    <div class="row mt-3" data-intro="In this table you can see, all your products." data-step="4" >
+      <div class="col-12" data-intro="To edit or delete product, you should click on the name of product." data-step="5" >
         <table class="table table-striped table-hover">
           <thead>
-            <tr>
-              <th scope="col" style="cursor:pointer" @click="orderBy('id')">
+            <tr @click="orderBy('id')" data-intro="You can click on any column to order the table based on it." data-step="7" >
+              <th scope="col" style="cursor:pointer" >
                 product#
                 <template v-if="order['id']">
                   <span
@@ -150,7 +150,7 @@
                 </template>
               </th>
             </tr>
-            <tr>
+            <tr @click="orderBy('id')" data-intro="You can use this columns to filter this table." data-step="8" >
               <th></th>
               <th>
                 <input
@@ -599,6 +599,7 @@
 <script>
 import apiProducts from "../api/products";
 import apiCategories from "../api/categories";
+import "intro.js/minified/introjs.min.css";
 
 export default {
   data() {
@@ -620,6 +621,9 @@ export default {
   mounted() {
     this.LoadCategories();
     this.LoadProducts();
+
+    const introJS = require("intro.js");
+    introJS('body').start();
   },
   methods: {
     LoadProducts() {
